@@ -58,11 +58,24 @@ class AjaxController extends Controller
          }
      }
 
-     public function new2()
-
+     public function edit(Request $request)
      {
-
-
+        if($request->ajax())
+        {
+               $student = Student::find($request->id);
+               return response($student);
+        }
      }
+
+     public function update(Request $request)
+     {
+        if($request->ajax())
+        {
+               $student = Student::find($request->id);
+               $student->update($request->all());
+               return response($this->find($student->id));
+        }
+    }
+     
 
 }

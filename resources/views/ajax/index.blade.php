@@ -2,6 +2,7 @@
 
 @section('content')
 @include('ajax.addStudent')
+@include('ajax.updateStudent')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -103,6 +104,52 @@
            $.post('{{ URL::to("students/destroy") }}',{id:id},function(data){
                $('tr#'+id).remove();
            })
+   })
+
+   //------------------------Edit Student----------------------------
+
+   $('body').delegate('#student-info #edit','click',function(e){
+        var id = $(this).data('id');
+        $.get('{{ URL::to("students/edit") }}',{id:id},function(data){
+            $('#frm-update').find('#first_name').val(data.first_name);
+            $('#frm-update').find('#last_name').val(data.last_name);
+            $('#frm-update').find('#sex_id').val(data.sex_id);
+            $('#frm-update').find('#id').val(data.id);
+            $('#student-update').modal('show');
+        })
+   })
+
+   //------------------------Update Student------------------------------
+
+   $('#frm-update').on('submit',function(e){
+       e.preventDefault();
+       var data = $(this).serialize();
+       var url = $(this).attr('action');
+       $.post(url,data,function(data){
+        $('#frm-update').trigger('reset');
+
+        var tr = $('<tr/>',{
+            id:data.id
+        });
+        tr.append($("<td/>",{
+         text: data.id
+        })).append($("<td/>",{
+         text: data.first_name
+        })).append($("<td/>",{
+         text: data.last_name
+        })).append($("<td/>",{
+         text: data.full_name
+        })).append($("<td/>",{
+         text: data.sex
+        })).append($("<td/>",{
+         
+           html : '<a href="#" class="btn btn-info btn-xs" id="view" data-id="'+ data.id +'">View</a> ' + '<a href="#" class="btn btn-success btn-xs" id="edit" data-id="'+ data.id +'">Edit</a> ' + '<a href="#" class="btn btn-danger btn-xs" id="dele" data-id="'+ data.id +'">Delete</a>'
+
+        }))
+
+        $('#student-info tr#'+data.id).replaceWith(tr);
+
+       })
    })
 </script>
 

@@ -41,5 +41,9 @@ Route::post('/students/store','AjaxController@store');
 
 Route::post('/students/destroy','AjaxController@destroy');
 
+Route::get('/students/edit','AjaxController@edit');
+
+Route::post('/students/update','AjaxController@update');
+
 
 

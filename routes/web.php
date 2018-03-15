@@ -45,5 +45,11 @@ Route::get('/students/edit','AjaxController@edit');
 
 Route::post('/students/update','AjaxController@update');
 
+Route::get('/students/pagination','AjaxController@pagination');
+
+Route::get('/students/page/ajax','AjaxController@studentPage');
+
+
+
 
 

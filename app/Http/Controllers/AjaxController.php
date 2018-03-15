@@ -76,6 +76,28 @@ class AjaxController extends Controller
                return response($this->find($student->id));
         }
     }
+
+    public function findPage()
+    {
+         return Student::join('sexes','sexes.id','=','students.sex_id')
+              ->selectRaw('sexes.sex,
+                         students.first_name,
+                         students.last_name,
+                         CONCAT(students.first_name," ",students.last_name) AS full_name,
+                         students.id')
+
+              ->paginate(2);
+    }
      
+    public function pagination(){
+        $students = $this->findPage();
+        return view('ajax.pagination',compact('students'));
+    }
+     
+    public function studentPage (){
+        $students = $this->findPage();
+        return view('ajax.studentPage',compact('students'))->render();
+    }
+
 
 }

@@ -49,6 +49,10 @@ Route::get('/students/pagination','AjaxController@pagination');
 
 Route::get('/students/page/ajax','AjaxController@studentPage');
 
+Route::get('/datatable','DatatableController@index');
+
+
+
 
 
 

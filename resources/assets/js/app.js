@@ -8,6 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-dt/css/jquery.dataTables.css';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
